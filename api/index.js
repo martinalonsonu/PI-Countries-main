@@ -18,11 +18,23 @@
 //                       `=---='
 //     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 const server = require('./src/app.js');
+const { dataApi } = require('./src/controllers/controller.js');
 const { conn } = require('./src/db.js');
 
 // Syncing all the models at once.
-conn.sync({ force: true }).then(() => {
-  server.listen(3001, () => {
-    console.log('%s listening at 3001'); // eslint-disable-line no-console
-  });
-});
+conn.sync({ force: true })
+    .then(async () => {
+        try {
+            await dataApi();
+            console.log('Base de datos cargada correctamente');
+            server.listen(3001, () => {
+                console.log('%s listening at 3001'); // eslint-disable-line no-console
+            });
+        } catch (error) {
+            console.error('Error al sincronizar los modelos:', error);
+        }
+    })
+    .catch((error) => {
+        console.error('Error al sincronizar los modelos:', error);
+    });
+
