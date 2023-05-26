@@ -1,10 +1,12 @@
 import React from "react";
 import SearchBar from "../SearchBar/SeachBar";
+import { useLocation } from "react-router-dom";
 
-function NavBar({ renderCountries }) {
+function NavBar({ searchCountries }) {
+  const { pathname } = useLocation();
   return (
     <div>
-      <SearchBar renderCountries={renderCountries} />
+      {pathname === "/home" && <SearchBar searchCountries={searchCountries} />}
     </div>
   );
 }

@@ -2,48 +2,67 @@ import React, { useState } from "react";
 import Card from "../Card/Card";
 
 function Home({ countries }) {
-  const [page, setPage] = useState(0);
+  const [index, setIndex] = useState(0);
+  const [page, setPage] = useState(1);
   const pagSize = 10;
-  const countriesSlice = countries.slice(page, page + pagSize);
+  const numPages = Math.ceil(countries.length / pagSize);
+  const countriesSlice = countries.slice(index, index + pagSize);
 
   const btnNext = () => {
-    if (page + pagSize < countries.length) setPage(page + pagSize);
+    if (index + pagSize < countries.length) {
+      setIndex(index + pagSize);
+      setPage(page + 1);
+    }
   };
   const btnPrevious = () => {
-    if (page > 0) setPage(page - pagSize);
+    if (index > 0) {
+      setIndex(index - pagSize);
+      setPage(page - 1);
+    }
+  };
+
+  const handleChange = (event) => {
+    const page = event.target.value;
+    setPage(page);
+  };
+
+  const handleKey = (event) => {
+    const page = event.target.value;
+    if (event.key === "Enter") {
+      if (page > numPages) {
+        alert("El número ingresado se excede al total de páginas");
+        setIndex(0);
+        setPage(1);
+      } else if (page < 1) {
+        setIndex(0);
+        setPage(1);
+      } else {
+        setIndex(page * pagSize - pagSize);
+        setPage(page);
+      }
+    }
   };
 
   return (
     <div>
-      {countriesSlice.map(
-        ({
-          id,
-          name,
-          flag,
-          continent,
-          capital,
-          subregion,
-          area,
-          population,
-          activities,
-        }) => (
+      <div>
+        {countriesSlice.map(({ id, name, flag, continent }) => (
           <div key={id}>
-            <Card
-              id={id}
-              name={name}
-              flag={flag}
-              continent={continent}
-              capital={capital}
-              subregion={subregion}
-              area={area}
-              population={population}
-              activities={activities}
-            />
+            <Card id={id} name={name} flag={flag} continent={continent} />
           </div>
-        )
-      )}
-      <button onClick={btnPrevious}>Anterior</button>
-      <button onClick={btnNext}>Siguiente</button>
+        ))}
+      </div>
+      <div>
+        <button onClick={btnPrevious}>Anterior</button>
+        <input
+          type="text"
+          onChange={handleChange}
+          value={page}
+          onKeyUp={handleKey}
+        />
+        <p>de: {numPages}</p>
+        <button onClick={btnNext}>Siguiente</button>
+      </div>
     </div>
   );
 }

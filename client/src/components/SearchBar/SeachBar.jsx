@@ -1,26 +1,12 @@
 import React, { useState } from "react";
 
-function SeachBar({ renderCountries }) {
+function SeachBar({ searchCountries }) {
   const [name, setName] = useState("");
 
   const handleChange = (event) => {
-    setName(event.target.value);
-  };
-
-  const clickButton = () => {
-    if (!name) {
-      alert("¡No hay datos para realizar la búsqueda!");
-    } else {
-      renderCountries(name);
-      setName("");
-    }
-  };
-
-  const handleKeyDown = (event) => {
-    if (event.key === "Enter") {
-      renderCountries(name);
-      setName("");
-    }
+    const { value } = event.target;
+    setName(value);
+    searchCountries(value);
   };
 
   return (
@@ -29,11 +15,8 @@ function SeachBar({ renderCountries }) {
         type="text"
         value={name}
         onChange={handleChange}
-        onKeyDown={handleKeyDown}
+        placeholder="Busca tu país..."
       />
-      <button onClick={clickButton} className="search-button">
-        Buscar
-      </button>
     </div>
   );
 }
