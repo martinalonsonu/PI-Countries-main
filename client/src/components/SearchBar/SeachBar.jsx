@@ -1,12 +1,15 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { getCountriesByName } from "../../redux/actions";
 
-function SeachBar({ searchCountries }) {
+function SeachBar() {
   const [name, setName] = useState("");
+  const dispatch = useDispatch();
 
   const handleChange = (event) => {
     const { value } = event.target;
     setName(value);
-    searchCountries(value);
+    dispatch(getCountriesByName(value));
   };
 
   return (

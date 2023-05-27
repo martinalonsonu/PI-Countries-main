@@ -1,9 +1,10 @@
 const axios = require('axios')
 const { Country } = require('../db.js');
+const { API_ENDPOINT } = process.env
 
 const dataApi = async () => {
     try {
-        const response = await axios.get('https://rest-countries.up.railway.app/v2/all')
+        const response = await axios.get(API_ENDPOINT)
         const data = response.data;
         const countries = data.map((element) => ({
             id: element.alpha3Code,

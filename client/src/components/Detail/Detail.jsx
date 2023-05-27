@@ -1,24 +1,18 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
+import React, { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { getCountriesById } from "../../redux/actions";
 
 function Detail() {
   const { id } = useParams();
   const navigate = useNavigate();
-  const [country, setCountry] = useState({});
+
+  const { country_detail } = useSelector((state) => state);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    const detailCountry = async () => {
-      const url = `http://localhost:3001/countries/${id}`;
-      try {
-        const { data } = await axios.get(url);
-        setCountry(data);
-      } catch (error) {
-        console.log(error.message);
-      }
-    };
-    detailCountry();
-  }, [id]);
+    dispatch(getCountriesById(id));
+  }, [dispatch, id]);
 
   const backPage = () => {
     navigate(-1);
@@ -26,16 +20,19 @@ function Detail() {
 
   return (
     <div>
-      <h1>Detail Country: {country.name}</h1>
+      <h1>Detail Country: {country_detail.name}</h1>
       <div>
-        <img src={country.flag} alt={`Bandera de ${country.name}`} />
+        <img
+          src={country_detail.flag}
+          alt={`Bandera de ${country_detail.name}`}
+        />
       </div>
       <div>
-        <p>Capital: {country.capital}</p>
-        <p>Continent: {country.continent}</p>
-        <p>Subregion: {country.subregion}</p>
-        <p>Area: {country.area} m²</p>
-        <p>Population: {country.population}</p>
+        <p>Capital: {country_detail.capital}</p>
+        <p>Continent: {country_detail.continent}</p>
+        <p>Subregion: {country_detail.subregion}</p>
+        <p>Area: {country_detail.area} m²</p>
+        <p>Population: {country_detail.population}</p>
         <button onClick={backPage}>Return</button>
       </div>
     </div>

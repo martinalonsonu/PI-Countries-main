@@ -1,7 +1,19 @@
 import React, { useState } from "react";
 import Card from "../Card/Card";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getCountries } from "../../redux/actions";
 
-function Home({ countries }) {
+function Home() {
+  const dispatch = useDispatch();
+  const { countries } = useSelector((state) => state);
+
+  //Despacho las countries
+  useEffect(() => {
+    dispatch(getCountries());
+  }, [dispatch]);
+
+  //Paginación
   const [index, setIndex] = useState(0);
   const [page, setPage] = useState(1);
   const pagSize = 10;

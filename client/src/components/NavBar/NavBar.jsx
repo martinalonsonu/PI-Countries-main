@@ -2,13 +2,9 @@ import React from "react";
 import SearchBar from "../SearchBar/SeachBar";
 import { useLocation } from "react-router-dom";
 
-function NavBar({ searchCountries }) {
+function NavBar() {
   const { pathname } = useLocation();
-  return (
-    <div>
-      {pathname === "/home" && <SearchBar searchCountries={searchCountries} />}
-    </div>
-  );
+  return <div>{pathname === "/home" && <SearchBar />}</div>;
 }
 
 export default NavBar;

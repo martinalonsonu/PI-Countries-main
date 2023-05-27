@@ -28,7 +28,7 @@ conn.sync({ force: true })
             await dataApi();
             console.log('Base de datos cargada correctamente');
             server.listen(3001, () => {
-                console.log('%s listening at 3001'); // eslint-disable-line no-console
+                console.log('Server up on port 3001'); // eslint-disable-line no-console
             });
         } catch (error) {
             console.error('Error al sincronizar los modelos:', error);
