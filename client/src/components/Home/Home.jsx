@@ -2,7 +2,12 @@ import React, { useState } from "react";
 import Card from "../Card/Card";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getCountries } from "../../redux/actions";
+import {
+  getCountries,
+  filterCountries,
+  sortCountriesName,
+  sortCountriesPopulation,
+} from "../../redux/actions";
 
 function Home() {
   const dispatch = useDispatch();
@@ -55,8 +60,53 @@ function Home() {
     }
   };
 
+  const handleFilter = (event) => {
+    dispatch(filterCountries(event.target.value));
+    setIndex(0);
+    setPage(1);
+  };
+
+  const handleOrderName = (event) => {
+    dispatch(sortCountriesName(event.target.value));
+    setIndex(0);
+    setPage(1);
+  };
+
+  const handleOrderPopulation = (event) => {
+    dispatch(sortCountriesPopulation(event.target.value));
+    setIndex(0);
+    setPage(1);
+  };
+
   return (
     <div>
+      <div>
+        <select onChange={handleFilter}>
+          <option value="filter" disabled="disabled" selected>
+            Filter by continent
+          </option>
+          <option value="All">Todos</option>
+          <option value="Asia">Asia</option>
+          <option value="Africa">Africa</option>
+          <option value="Americas">Americas</option>
+          <option value="Europe">Europe</option>
+          <option value="Oceania">Oceania</option>
+        </select>
+        <select onChange={handleOrderName}>
+          <option value="orderName" disabled="disabled" selected>
+            Order by name
+          </option>
+          <option value="Alfabetico">A-Z</option>
+          <option value="Inverso">Z-A</option>
+        </select>
+        <select onChange={handleOrderPopulation}>
+          <option value="orderPopulation" disabled="disabled" selected>
+            Order by population
+          </option>
+          <option value="MenorMayor">Descending population</option>
+          <option value="MayorMenor">Ascending population</option>
+        </select>
+      </div>
       <div>
         {countriesSlice.map(({ id, name, flag, continent }) => (
           <div key={id}>

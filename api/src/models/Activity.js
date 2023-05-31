@@ -11,6 +11,7 @@ module.exports = (sequelize) => {
         name: {
             type: DataTypes.STRING,
             allowNull: false,
+            unique: true,
         },
         difficulty: {
             type: DataTypes.INTEGER,
@@ -21,12 +22,12 @@ module.exports = (sequelize) => {
             }
         },
         duration: {
-            type: DataTypes.STRING
+            type: DataTypes.INTEGER
         },
         season: {
             type: DataTypes.STRING,
             validate: {
-                isIn: [["Verano", "Otoño", "Invierno", "Primavera"]]
+                isIn: [["Spring", "Summer", "Fall", "Winter"]]
             }
         }
     }, {

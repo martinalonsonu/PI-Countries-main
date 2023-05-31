@@ -1,7 +1,9 @@
-import { GET_COUNTRIES, GET_COUNTRIES_BY_ID, GET_COUNTRIES_BY_NAME } from './action-types'
+import { GET_COUNTRIES, GET_COUNTRIES_BY_ID, GET_COUNTRIES_BY_NAME, FILTER_CONTINENT, SORT_COUNTRIES_NAME, SORT_COUNTRIES_POPULATION, CREATE_ACTIVITY } from './action-types'
 const initialState = {
     countries: [],
-    country_detail: {}
+    allCountries: [],
+    country_detail: {},
+    activities: []
 }
 
 const reducer = (state = initialState, action) => {
@@ -10,12 +12,14 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 countries: action.payload,
+                allCountries: action.payload,
             }
 
         case GET_COUNTRIES_BY_NAME:
             return {
                 ...state,
                 countries: action.payload,
+                allCountries: action.payload,
             }
 
         case GET_COUNTRIES_BY_ID:
@@ -23,6 +27,42 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 country_detail: action.payload,
             }
+
+        case FILTER_CONTINENT:
+            const allCountriesFilter = state.allCountries.filter((country) => country.continent === action.payload)
+            return {
+                ...state,
+                countries:
+                    action.payload === "All"
+                        ? state.allCountries
+                        : allCountriesFilter
+            }
+
+        case SORT_COUNTRIES_NAME:
+            return {
+                ...state,
+                countries: action.payload === "Alfabetico" ? state.countries.sort((a, b) => a.name.localeCompare(b.name)) : state.countries.sort(((a, b) => b.name.localeCompare(a.name)))
+            }
+
+        case SORT_COUNTRIES_POPULATION:
+            return {
+                ...state,
+                countries: action.payload === "MenorMayor" ? state.countries.sort((a, b) => a.population - b.population) : state.countries.sort((a, b) => b.population - a.population)
+            }
+
+        case CREATE_ACTIVITY:
+            const activity = {
+                name: action.payload.name,
+                difficulty: action.payload.difficulty,
+                duration: action.payload.duration,
+                season: action.payload.season,
+                countries: action.payload.countries
+            }
+            return {
+                ...state,
+                activities: [...state.activities, activity]
+            }
+
         default:
             return { ...state };
     }
