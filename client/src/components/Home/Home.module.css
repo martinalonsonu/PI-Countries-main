@@ -1,0 +1,48 @@
+.container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.filters {
+    width: 300px;
+    height: 680px;
+    flex-grow: 0;
+    flex-shrink: 0;
+    position: sticky;
+    top: 20px;
+    margin-top: 25px;
+    margin-left: 30px;
+    background-color: #72bca5;
+    padding: 20px;
+    border-radius: 15px;
+    box-sizing: border-box;
+    box-shadow: 7px 6px 15px rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.countries {
+    flex-grow: 1;
+    flex-shrink: 1;
+    flex-basis: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.pagination {
+    flex-basis: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.pagination button {
+    margin: 0 5px;
+}
+
+option[disabled] {
+    color: gray;
+}

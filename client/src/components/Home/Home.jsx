@@ -8,6 +8,7 @@ import {
   sortCountriesName,
   sortCountriesPopulation,
 } from "../../redux/actions";
+import style from "./Home.module.css";
 
 function Home() {
   const dispatch = useDispatch();
@@ -21,7 +22,7 @@ function Home() {
   //Paginación
   const [index, setIndex] = useState(0);
   const [page, setPage] = useState(1);
-  const pagSize = 10;
+  const pagSize = 9;
   const numPages = Math.ceil(countries.length / pagSize);
   const countriesSlice = countries.slice(index, index + pagSize);
 
@@ -79,8 +80,8 @@ function Home() {
   };
 
   return (
-    <div>
-      <div>
+    <div className={style.container}>
+      <div className={style.filters}>
         <select onChange={handleFilter}>
           <option value="filter" disabled="disabled" selected>
             Filter by continent
@@ -107,14 +108,14 @@ function Home() {
           <option value="MayorMenor">Ascending population</option>
         </select>
       </div>
-      <div>
+      <div className={style.countries}>
         {countriesSlice.map(({ id, name, flag, continent }) => (
           <div key={id}>
             <Card id={id} name={name} flag={flag} continent={continent} />
           </div>
         ))}
       </div>
-      <div>
+      <div className={style.pagination}>
         <button onClick={btnPrevious}>Anterior</button>
         <input
           type="text"
