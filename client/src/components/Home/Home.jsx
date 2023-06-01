@@ -11,16 +11,17 @@ import {
 } from "../../redux/actions";
 import style from "./Home.module.css";
 import Pagination from "../Pagination/Pagination";
+import { Link } from "react-router-dom";
 
 function Home() {
   const dispatch = useDispatch();
   const { countries, page } = useSelector((state) => state);
 
   //Paginación
-  const index = page - 1;
-  const pagSize = 10;
-  const numPages = Math.ceil(countries.length / pagSize);
-  const countriesSlice = countries.slice(index, index + pagSize);
+  const numberCards = 10;
+  const index = page * numberCards - numberCards;
+  const numberPages = Math.ceil(countries.length / numberCards);
+  const countriesSlice = countries.slice(index, index + numberCards);
 
   const continents = ["All", "Asia", "Africa", "Americas", "Europe", "Oceania"];
 
@@ -73,13 +74,15 @@ function Home() {
       <div className={style.countries}>
         {countriesSlice.map(({ id, name, flag, continent }) => (
           <div key={id}>
-            <Card id={id} name={name} flag={flag} continent={continent} />
+            <Link to={`/detail/${id}`}>
+              <Card id={id} name={name} flag={flag} continent={continent} />
+            </Link>
           </div>
         ))}
       </div>
 
       <div className={style.containerPagination}>
-        <Pagination numPages={numPages} />
+        <Pagination numberPages={numberPages} />
       </div>
     </div>
   );

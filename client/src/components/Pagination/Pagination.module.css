@@ -20,14 +20,14 @@
     transition: transform 0.5 ease;
 }
 
-.pagination button.buttonNumber {
-    background-color: #72bca5;
-}
-
-option[disabled] {
-    color: gray;
-}
-
 .pagination button:hover {
     transform: scale(1.2);
+}
+
+.pagination button.activeButton {
+    background-color: #f4ddb4;
+}
+
+.display {
+    display: none;
 }

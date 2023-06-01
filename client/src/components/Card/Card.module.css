@@ -33,27 +33,6 @@
     border-top-right-radius: 15px;
 }
 
-.buttonDetail {
-    position: absolute;
-    top: 8px;
-    right: 10px;
-    z-index: 1;
-}
-
-.buttonDetail button {
-    color: white;
-    background-color: #bc0b27;
-    border: none;
-    border-radius: 15px;
-    padding: 5px;
-    cursor: pointer;
-}
-
-.buttonDetail button:hover {
-    color: black;
-    background-color: #f1ae2b;
-}
-
 .card:hover {
     transform: scale(1.05);
 }
