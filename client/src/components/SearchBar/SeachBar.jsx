@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { getCountriesByName } from "../../redux/actions";
+import { getCountriesByName, currentPage } from "../../redux/actions";
 import style from "./SearchBar.module.css";
 
 function SeachBar() {
@@ -11,6 +11,7 @@ function SeachBar() {
     const { value } = event.target;
     setName(value);
     dispatch(getCountriesByName(value));
+    dispatch(currentPage(1));
   };
 
   return (

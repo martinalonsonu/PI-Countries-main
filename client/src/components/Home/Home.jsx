@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Card from "../Card/Card";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -7,74 +7,41 @@ import {
   filterCountries,
   sortCountriesName,
   sortCountriesPopulation,
+  currentPage,
 } from "../../redux/actions";
 import style from "./Home.module.css";
+import Pagination from "../Pagination/Pagination";
 
 function Home() {
   const dispatch = useDispatch();
-  const { countries } = useSelector((state) => state);
+  const { countries, page } = useSelector((state) => state);
 
   //Paginación
-  const [index, setIndex] = useState(0);
-  const [page, setPage] = useState(1);
-  const [clicked, setClicked] = useState(1);
+  const index = page - 1;
   const pagSize = 10;
   const numPages = Math.ceil(countries.length / pagSize);
   const countriesSlice = countries.slice(index, index + pagSize);
 
   const continents = ["All", "Asia", "Africa", "Americas", "Europe", "Oceania"];
-  let numberButtons = [];
-  for (let i = 1; i <= numPages; i++) {
-    numberButtons.push(i);
-  }
 
   //Despacho las countries
   useEffect(() => {
     dispatch(getCountries());
   }, [dispatch]);
 
-  const buttonNext = () => {
-    if (index + pagSize < countries.length) {
-      setIndex(index + pagSize);
-      setPage(Number(page) + 1);
-      setClicked(Number(page) + 1);
-    }
-  };
-
-  const buttonPrevious = () => {
-    if (index > 0) {
-      setIndex(index - pagSize);
-      setPage(Number(page) - 1);
-      setClicked(Number(page) - 1);
-    }
-  };
-
-  const handlePage = (event) => {
-    const { value } = event.target;
-    setIndex(value * pagSize - pagSize);
-    setPage(value);
-    setClicked(Number(value));
-  };
-
   const handleFilter = (event) => {
     dispatch(filterCountries(event.target.value));
-    setIndex(0);
-    setPage(1);
-    setClicked(1);
+    dispatch(currentPage(1));
   };
 
   const handleOrderName = (event) => {
     dispatch(sortCountriesName(event.target.value));
-    setIndex(0);
-    setPage(1);
-    setClicked(1);
+    dispatch(currentPage(1));
   };
 
   const handleOrderPopulation = (event) => {
     dispatch(sortCountriesPopulation(event.target.value));
-    setIndex(0);
-    setPage(1);
-    setClicked(1);
+    dispatch(currentPage(1));
   };
 
   return (
@@ -111,19 +78,8 @@ function Home() {
         ))}
       </div>
 
-      <div className={style.pagination}>
-        <button onClick={buttonPrevious}>Anterior</button>
-        {numberButtons.map((number) => (
-          <button
-            className={clicked === number ? style.buttonNumber : ""}
-            key={number}
-            value={number}
-            onClick={handlePage}
-          >
-            {number}
-          </button>
-        ))}
-        <button onClick={buttonNext}>Siguiente</button>
+      <div className={style.containerPagination}>
+        <Pagination numPages={numPages} />
       </div>
     </div>
   );
