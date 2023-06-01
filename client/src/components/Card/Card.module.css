@@ -5,6 +5,7 @@
     border-radius: 20px;
     margin: 25px;
     box-shadow: 7px 6px 15px rgba(0, 0, 0, 0.7);
+    transition: transform 0.8 ease;
 }
 
 .imgContainer {
@@ -14,6 +15,8 @@
 }
 
 .textContainer {
+    width: 100%;
+    height: 150px;
     background-color: #f4ddb4;
     border-bottom-left-radius: 15px;
     border-bottom-right-radius: 15px;
@@ -49,6 +52,10 @@
 .buttonDetail button:hover {
     color: black;
     background-color: #f1ae2b;
+}
+
+.card:hover {
+    transform: scale(1.05);
 }
 
 /* .color1 { #72bca5 };

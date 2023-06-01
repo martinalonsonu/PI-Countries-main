@@ -14,69 +14,67 @@ function Home() {
   const dispatch = useDispatch();
   const { countries } = useSelector((state) => state);
 
+  //Paginación
+  const [index, setIndex] = useState(0);
+  const [page, setPage] = useState(1);
+  const [clicked, setClicked] = useState(1);
+  const pagSize = 10;
+  const numPages = Math.ceil(countries.length / pagSize);
+  const countriesSlice = countries.slice(index, index + pagSize);
+
+  const continents = ["All", "Asia", "Africa", "Americas", "Europe", "Oceania"];
+  let numberButtons = [];
+  for (let i = 1; i <= numPages; i++) {
+    numberButtons.push(i);
+  }
+
   //Despacho las countries
   useEffect(() => {
     dispatch(getCountries());
   }, [dispatch]);
 
-  //Paginación
-  const [index, setIndex] = useState(0);
-  const [page, setPage] = useState(1);
-  const pagSize = 9;
-  const numPages = Math.ceil(countries.length / pagSize);
-  const countriesSlice = countries.slice(index, index + pagSize);
-
-  const btnNext = () => {
+  const buttonNext = () => {
     if (index + pagSize < countries.length) {
       setIndex(index + pagSize);
-      setPage(page + 1);
+      setPage(Number(page) + 1);
+      setClicked(Number(page) + 1);
     }
   };
-  const btnPrevious = () => {
+
+  const buttonPrevious = () => {
     if (index > 0) {
       setIndex(index - pagSize);
-      setPage(page - 1);
+      setPage(Number(page) - 1);
+      setClicked(Number(page) - 1);
     }
   };
 
-  const handleChange = (event) => {
-    const page = event.target.value;
-    setPage(page);
-  };
-
-  const handleKey = (event) => {
-    const page = event.target.value;
-    if (event.key === "Enter") {
-      if (page > numPages) {
-        alert("El número ingresado se excede al total de páginas");
-        setIndex(0);
-        setPage(1);
-      } else if (page < 1) {
-        setIndex(0);
-        setPage(1);
-      } else {
-        setIndex(page * pagSize - pagSize);
-        setPage(page);
-      }
-    }
+  const handlePage = (event) => {
+    const { value } = event.target;
+    setIndex(value * pagSize - pagSize);
+    setPage(value);
+    setClicked(Number(value));
   };
 
   const handleFilter = (event) => {
     dispatch(filterCountries(event.target.value));
     setIndex(0);
     setPage(1);
+    setClicked(1);
   };
 
   const handleOrderName = (event) => {
     dispatch(sortCountriesName(event.target.value));
     setIndex(0);
     setPage(1);
+    setClicked(1);
   };
 
   const handleOrderPopulation = (event) => {
     dispatch(sortCountriesPopulation(event.target.value));
     setIndex(0);
     setPage(1);
+    setClicked(1);
   };
 
   return (
@@ -86,12 +84,9 @@ function Home() {
           <option value="filter" disabled="disabled" selected>
             Filter by continent
           </option>
-          <option value="All">Todos</option>
-          <option value="Asia">Asia</option>
-          <option value="Africa">Africa</option>
-          <option value="Americas">Americas</option>
-          <option value="Europe">Europe</option>
-          <option value="Oceania">Oceania</option>
+          {continents.map((continent) => (
+            <option value={continent}>{continent}</option>
+          ))}
         </select>
         <select onChange={handleOrderName}>
           <option value="orderName" disabled="disabled" selected>
@@ -115,16 +110,20 @@ function Home() {
           </div>
         ))}
       </div>
+
       <div className={style.pagination}>
-        <button onClick={btnPrevious}>Anterior</button>
-        <input
-          type="text"
-          onChange={handleChange}
-          value={page}
-          onKeyUp={handleKey}
-        />
-        <p>de: {numPages}</p>
-        <button onClick={btnNext}>Siguiente</button>
+        <button onClick={buttonPrevious}>Anterior</button>
+        {numberButtons.map((number) => (
+          <button
+            className={clicked === number ? style.buttonNumber : ""}
+            key={number}
+            value={number}
+            onClick={handlePage}
+          >
+            {number}
+          </button>
+        ))}
+        <button onClick={buttonNext}>Siguiente</button>
       </div>
     </div>
   );

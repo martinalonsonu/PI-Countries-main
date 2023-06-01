@@ -5,22 +5,26 @@ import Form from './components/Form/Form';
 import Home from './components/Home/Home';
 import Landing from './components/Landing/Landing';
 import NavBar from './components/NavBar/NavBar';
+import Activity from './components/Activity/Activity';
+
 
 
 function App() {
     const { pathname } = useLocation();
 
     return (
-        <div className="App">
+        <div className={pathname === '/' ? 'Landing' : 'App'} >
             <div>
-                {pathname !== "/" && <NavBar />}
+                {pathname === "/" ? "" : <NavBar />}
             </div>
             <div>
                 <Routes>
                     <Route path='/' element={<Landing />} />
                     <Route path='/home' element={<Home />} />
                     <Route path='/detail/:id' element={<Detail />} />
-                    <Route path='/activities' element={<Form />} />
+                    <Route path='/createactivity' element={<Form />} />
+                    <Route path='/activities' element={<Activity />} />
+
                 </Routes>
             </div>
         </div>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { createActivity, getCountries } from "../../redux/actions";
+import { createActivity, getCountries, getActivity } from "../../redux/actions";
 import { useSelector, useDispatch } from "react-redux";
 
 function Form() {
@@ -37,6 +37,7 @@ function Form() {
     event.preventDefault();
     const newActivity = { ...activity, countries: selectedCountries };
     dispatch(createActivity(newActivity));
+    dispatch(getActivity());
     setActivity({
       name: "",
       difficulty: "",

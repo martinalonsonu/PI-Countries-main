@@ -1,4 +1,4 @@
-import { GET_COUNTRIES, GET_COUNTRIES_BY_ID, GET_COUNTRIES_BY_NAME, FILTER_CONTINENT, SORT_COUNTRIES_NAME, SORT_COUNTRIES_POPULATION, CREATE_ACTIVITY } from './action-types'
+import { GET_COUNTRIES, GET_COUNTRIES_BY_ID, GET_COUNTRIES_BY_NAME, FILTER_CONTINENT, SORT_COUNTRIES_NAME, SORT_COUNTRIES_POPULATION, CREATE_ACTIVITY, GET_ACTIVITY } from './action-types'
 const initialState = {
     countries: [],
     allCountries: [],
@@ -62,6 +62,12 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 activities: [...state.activities, activity]
             }
+
+        case GET_ACTIVITY:
+            return {
+                ...state,
+                activities: action.payload,
+            };
 
         default:
             return { ...state };

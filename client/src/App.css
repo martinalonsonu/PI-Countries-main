@@ -1,7 +1,19 @@
-.App {
+.Landing {
     min-height: 100vh;
     text-align: center;
     background-image: url('./images/viaje.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+.App {
+    min-height: 100vh;
+    text-align: center;
+
+    background: rgb(114, 188, 165);
+    background: radial-gradient(circle, rgba(114, 188, 165, 1) 0%, rgba(241, 174, 43, 1) 79%, rgba(74, 37, 18, 1) 100%);
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;

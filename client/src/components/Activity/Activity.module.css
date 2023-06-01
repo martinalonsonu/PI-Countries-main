@@ -1,0 +1,46 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+h1 {
+    margin-top: 45px;
+}
+
+.tableInfo {
+    border-collapse: collapse;
+    margin: 5px;
+    border-radius: 25px;
+    overflow: hidden;
+}
+
+.tableInfo td,
+.tableInfo th {
+    border: 3px solid #ddd;
+    padding: 8px;
+}
+
+.tableInfo tr {
+    background-color: rgba(242, 242, 242, 0.3);
+}
+
+.tableInfo th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: center;
+    background-color: #bc0b27;
+    color: white;
+}
+
+.tableInfo tr:hover {
+    background-color: rgba(221, 208, 0, 0.3)
+}
+
+
+/* .color1 { #72bca5 };
+.color2 { #f4ddb4 };
+.color3 { #f1ae2b };
+.color4 { #bc0b27 };
+.color5 { #4a2512 }; */

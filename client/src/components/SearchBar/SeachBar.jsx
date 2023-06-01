@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { getCountriesByName } from "../../redux/actions";
+import style from "./SearchBar.module.css";
 
 function SeachBar() {
   const [name, setName] = useState("");
@@ -13,7 +14,7 @@ function SeachBar() {
   };
 
   return (
-    <div>
+    <div className={style.container}>
       <input
         type="text"
         value={name}

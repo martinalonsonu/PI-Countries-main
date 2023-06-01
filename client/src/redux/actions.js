@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { GET_COUNTRIES, GET_COUNTRIES_BY_ID, GET_COUNTRIES_BY_NAME, FILTER_CONTINENT, SORT_COUNTRIES_NAME, SORT_COUNTRIES_POPULATION, CREATE_ACTIVITY } from './action-types'
+import { GET_COUNTRIES, GET_COUNTRIES_BY_ID, GET_COUNTRIES_BY_NAME, FILTER_CONTINENT, SORT_COUNTRIES_NAME, SORT_COUNTRIES_POPULATION, CREATE_ACTIVITY, GET_ACTIVITY } from './action-types'
 
 export const getCountries = () => {
     const endpoint = 'http://localhost:3001/countries';
@@ -75,12 +75,32 @@ export const sortCountriesPopulation = (order) => {
 
 export const createActivity = (activity) => {
     return async (dispatch) => {
-        const endpoint = 'http://localhost:3001/activities'
-        await axios.post(endpoint, activity).then((result) => {
-            return dispatch({
+        const endpoint = 'http://localhost:3001/activities';
+        try {
+            const result = await axios.post(endpoint, activity);
+            dispatch({
                 type: CREATE_ACTIVITY,
-                payload: result,
-            })
-        })
-    }
-}
+                payload: result.data,
+            });
+
+        } catch (error) {
+            return { error: error.message };
+        }
+    };
+};
+
+
+export const getActivity = () => {
+    const endpoint = 'http://localhost:3001/activities';
+    return async (dispatch) => {
+        try {
+            const { data } = await axios(endpoint);
+            return dispatch({
+                type: GET_ACTIVITY,
+                payload: data,
+            });
+        } catch (error) {
+            return { error: error.message };
+        }
+    };
+};
