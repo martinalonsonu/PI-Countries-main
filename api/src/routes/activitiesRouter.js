@@ -1,5 +1,5 @@
 const express = require('express')
-const { postActivities, getActivities } = require('../controllers/activitiesControler')
+const { postActivities, getActivities, deleteActivities } = require('../controllers/activitiesControler')
 
 const router = express.Router();
 
@@ -19,6 +19,16 @@ router.get('/', async (req, res) => {
         activities ? res.status(200).json(activities) : res.status(404).json({ error: 'No se encontraron actividades' })
     } catch (error) {
         res.status(500).json({ error: error.message })
+    }
+})
+
+router.delete('/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        await deleteActivities(id);
+        res.status(204).end();
+    } catch (error) {
+        res.status(400).json({ error: error.message })
     }
 })
 

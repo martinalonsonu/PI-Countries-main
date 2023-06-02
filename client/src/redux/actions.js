@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { GET_COUNTRIES, GET_COUNTRIES_BY_ID, GET_COUNTRIES_BY_NAME, FILTER_CONTINENT, SORT_COUNTRIES_NAME, SORT_COUNTRIES_POPULATION, CREATE_ACTIVITY, GET_ACTIVITY, NEXT_PAGE, PREVIOUS_PAGE, CURRENT_PAGE } from './action-types'
+import { GET_COUNTRIES, GET_COUNTRIES_BY_ID, GET_COUNTRIES_BY_NAME, FILTER_CONTINENT, FILTER_ACTIVITY, SORT_COUNTRIES_NAME, SORT_COUNTRIES_POPULATION, CREATE_ACTIVITY, GET_ACTIVITY, NEXT_PAGE, PREVIOUS_PAGE, CURRENT_PAGE } from './action-types'
 
 export const getCountries = () => {
     const endpoint = 'http://localhost:3001/countries';
@@ -51,6 +51,15 @@ export const filterCountries = (continent) => {
         return dispatch({
             type: FILTER_CONTINENT,
             payload: continent,
+        })
+    }
+}
+
+export const filterActivities = (activity) => {
+    return (dispatch) => {
+        return dispatch({
+            type: FILTER_ACTIVITY,
+            payload: activity,
         })
     }
 }
