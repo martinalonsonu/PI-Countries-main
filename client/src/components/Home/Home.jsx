@@ -56,30 +56,34 @@ function Home() {
     <div className={style.container}>
       <div className={style.filters}>
         <select onChange={handleFilter}>
-          <option value="filter" disabled="disabled" selected>
+          <option value="filter" disabled="disabled" defaultValue>
             Filter by continent
           </option>
-          {continents.map((continent) => (
-            <option value={continent}>{continent}</option>
+          {continents.map((continent, index) => (
+            <option key={index} value={continent}>
+              {continent}
+            </option>
           ))}
         </select>
         <select onChange={handleFilterActivity}>
-          <option value="filter" disabled="disabled" selected>
+          <option value="filter" disabled="disabled" defaultValue>
             Filter by activity
           </option>
-          {activities.map((activity) => (
-            <option value={activity.name}>{activity.name}</option>
+          {activities.map((activity, index) => (
+            <option key={index} value={activity.name}>
+              {activity.name}
+            </option>
           ))}
         </select>
         <select onChange={handleOrderName}>
-          <option value="orderName" disabled="disabled" selected>
+          <option value="orderName" disabled="disabled" defaultValue>
             Order by name
           </option>
           <option value="Alfabetico">A-Z</option>
           <option value="Inverso">Z-A</option>
         </select>
         <select onChange={handleOrderPopulation}>
-          <option value="orderPopulation" disabled="disabled" selected>
+          <option value="orderPopulation" disabled="disabled" defaultValue>
             Order by population
           </option>
           <option value="MenorMayor">Descending population</option>

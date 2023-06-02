@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getActivity } from "../../redux/actions";
+import { getActivity, deleteActivity } from "../../redux/actions";
 import style from "./Activity.module.css";
 
 function Activity() {
@@ -24,22 +24,25 @@ function Activity() {
           </tr>
         </thead>
         <tbody>
-          {activities?.map((activ, index) => (
-            <tr key={index}>
-              <td>{activ.name}</td>
-              <td>{activ.difficulty}</td>
-              <td>{activ.duration}</td>
-              <td>{activ.season}</td>
-              <td>
-                {activ.countries.map((country) => (
-                  <p>{country.name}</p>
-                ))}
-              </td>
-              <td>
-                <button>Borrar</button>
-              </td>
-            </tr>
-          ))}
+          {activities &&
+            activities?.map((activ, index) => (
+              <tr key={index}>
+                <td>{activ.name}</td>
+                <td>{activ.difficulty}</td>
+                <td>{activ.duration}</td>
+                <td>{activ.season}</td>
+                <td>
+                  {activ.countries?.map((country, index) => (
+                    <p key={index}>{country.name}</p>
+                  ))}
+                </td>
+                <td>
+                  <button onClick={() => dispatch(deleteActivity(activ.id))}>
+                    Borrar
+                  </button>
+                </td>
+              </tr>
+            ))}
         </tbody>
       </table>
     </div>

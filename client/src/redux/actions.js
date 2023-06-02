@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { GET_COUNTRIES, GET_COUNTRIES_BY_ID, GET_COUNTRIES_BY_NAME, FILTER_CONTINENT, FILTER_ACTIVITY, SORT_COUNTRIES_NAME, SORT_COUNTRIES_POPULATION, CREATE_ACTIVITY, GET_ACTIVITY, NEXT_PAGE, PREVIOUS_PAGE, CURRENT_PAGE } from './action-types'
+import { GET_COUNTRIES, GET_COUNTRIES_BY_ID, GET_COUNTRIES_BY_NAME, FILTER_CONTINENT, FILTER_ACTIVITY, SORT_COUNTRIES_NAME, SORT_COUNTRIES_POPULATION, CREATE_ACTIVITY, GET_ACTIVITY, DELETE_ACTIVITY, NEXT_PAGE, PREVIOUS_PAGE, CURRENT_PAGE } from './action-types'
 
 export const getCountries = () => {
     const endpoint = 'http://localhost:3001/countries';
@@ -113,6 +113,21 @@ export const getActivity = () => {
         }
     };
 };
+
+export const deleteActivity = (id) => {
+    const endpoint = `http://localhost:3001/activities/${id}`
+    return async (dispatch) => {
+        try {
+            await axios.delete(endpoint);
+            return dispatch({
+                type: DELETE_ACTIVITY,
+                payload: id,
+            })
+        } catch (error) {
+            return { error: error.message };
+        }
+    }
+}
 
 export const nextPage = () => {
     return (dispatch) => {
