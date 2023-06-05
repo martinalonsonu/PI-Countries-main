@@ -43,9 +43,32 @@ const deleteActivities = async (id) => {
             }
         });
     } catch (error) {
-        throw error;
+        return { error: error.message }
+    }
+}
+
+const updateActivities = async (id, name, difficulty, duration, season, countries) => {
+    try {
+        const activity = await Activity.findByPk(id)
+        if (!activity) throw new Error('No existe la actividad');
+        const updateActivity = await activity.update({
+            name,
+            difficulty,
+            duration,
+            season,
+        })
+        const country = await Country.findAll({
+            where: {
+                name: countries,
+            },
+        });
+        await updateActivity.setCountries(country)
+        return updateActivity;
+
+    } catch (error) {
+        return { error: error.message }
     }
 }
 
 
-module.exports = { postActivities, getActivities, deleteActivities }
+module.exports = { postActivities, getActivities, deleteActivities, updateActivities }

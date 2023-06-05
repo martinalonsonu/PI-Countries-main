@@ -8,8 +8,8 @@ import {
   filterCountries,
   sortCountriesName,
   sortCountriesPopulation,
-  currentPage,
   filterActivities,
+  currentPage,
 } from "../../redux/actions";
 import style from "./Home.module.css";
 import Pagination from "../Pagination/Pagination";
@@ -25,7 +25,7 @@ function Home() {
   const numberPages = Math.ceil(countries.length / numberCards);
   const countriesSlice = countries.slice(index, index + numberCards);
 
-  const continents = ["All", "Asia", "Africa", "Americas", "Europe", "Oceania"];
+  const continents = ["Asia", "Africa", "Americas", "Europe", "Oceania"];
 
   //Despacho las countries
   useEffect(() => {
@@ -33,15 +33,18 @@ function Home() {
     dispatch(getActivity());
   }, [dispatch]);
 
-  const handleFilter = (event) => {
+  //Filtros
+  const handleFilterContinent = (event) => {
     dispatch(filterCountries(event.target.value));
     dispatch(currentPage(1));
   };
 
   const handleFilterActivity = (event) => {
     dispatch(filterActivities(event.target.value));
+    dispatch(currentPage(1));
   };
 
+  //Ordenamientos
   const handleOrderName = (event) => {
     dispatch(sortCountriesName(event.target.value));
     dispatch(currentPage(1));
@@ -52,11 +55,17 @@ function Home() {
     dispatch(currentPage(1));
   };
 
+  const handleRemove = () => {
+    dispatch(getCountries());
+    dispatch(getActivity());
+    dispatch(currentPage(1));
+  };
+
   return (
     <div className={style.container}>
       <div className={style.filters}>
-        <select onChange={handleFilter}>
-          <option value="filter" disabled="disabled" defaultValue>
+        <select onChange={handleFilterContinent}>
+          <option value="filter" disabled="disabled" selected>
             Filter by continent
           </option>
           {continents.map((continent, index) => (
@@ -66,7 +75,7 @@ function Home() {
           ))}
         </select>
         <select onChange={handleFilterActivity}>
-          <option value="filter" disabled="disabled" defaultValue>
+          <option value="filter" disabled="disabled" selected>
             Filter by activity
           </option>
           {activities.map((activity, index) => (
@@ -76,19 +85,20 @@ function Home() {
           ))}
         </select>
         <select onChange={handleOrderName}>
-          <option value="orderName" disabled="disabled" defaultValue>
+          <option value="orderName" disabled="disabled" selected>
             Order by name
           </option>
-          <option value="Alfabetico">A-Z</option>
-          <option value="Inverso">Z-A</option>
+          <option value="Alphabetical">A-Z</option>
+          <option value="Reverse-Alphabetical">Z-A</option>
         </select>
         <select onChange={handleOrderPopulation}>
-          <option value="orderPopulation" disabled="disabled" defaultValue>
+          <option value="orderPopulation" disabled="disabled" selected>
             Order by population
           </option>
-          <option value="MenorMayor">Descending population</option>
-          <option value="MayorMenor">Ascending population</option>
+          <option value="Highest">Highest to lowest population</option>
+          <option value="Lower">Lower to higher population</option>
         </select>
+        <button onClick={handleRemove}>Remove Filters</button>
       </div>
       <div className={style.countries}>
         {countriesSlice.map(({ id, name, flag, continent }) => (

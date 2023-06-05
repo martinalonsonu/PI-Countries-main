@@ -1,5 +1,5 @@
 const express = require('express')
-const { postActivities, getActivities, deleteActivities } = require('../controllers/activitiesControler')
+const { postActivities, getActivities, deleteActivities, updateActivities } = require('../controllers/activitiesControler')
 
 const router = express.Router();
 
@@ -29,6 +29,17 @@ router.delete('/:id', async (req, res) => {
         res.status(204).end();
     } catch (error) {
         res.status(400).json({ error: error.message })
+    }
+})
+
+router.put('/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { name, difficulty, duration, season, countries } = req.body;
+        await updateActivities(id, name, difficulty, duration, season, countries)
+        res.status(200).send('Actividad actualizada correctamente')
+    } catch (error) {
+        res.status(404).send('Elemento no encontrado');
     }
 })
 

@@ -13,18 +13,16 @@ function App() {
     const { pathname } = useLocation();
 
     return (
-        <div className={pathname === '/' ? 'Landing' : 'App'} >
-            <div>
-                {pathname === "/" ? "" : <NavBar />}
-            </div>
+        <div className='App-container'>
+            {pathname !== "/" && <NavBar />}
             <div>
                 <Routes>
                     <Route path='/' element={<Landing />} />
                     <Route path='/home' element={<Home />} />
                     <Route path='/detail/:id' element={<Detail />} />
-                    <Route path='/createactivity' element={<Form />} />
                     <Route path='/activities' element={<Activity />} />
-
+                    <Route path='/create-activity' element={<Form />} />
+                    <Route path='/update-activity/:id' element={<Form />} />
                 </Routes>
             </div>
         </div>

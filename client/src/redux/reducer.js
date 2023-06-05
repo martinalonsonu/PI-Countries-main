@@ -1,4 +1,4 @@
-import { GET_COUNTRIES, GET_COUNTRIES_BY_ID, GET_COUNTRIES_BY_NAME, FILTER_CONTINENT, FILTER_ACTIVITY, SORT_COUNTRIES_NAME, SORT_COUNTRIES_POPULATION, CREATE_ACTIVITY, GET_ACTIVITY, DELETE_ACTIVITY, NEXT_PAGE, PREVIOUS_PAGE, CURRENT_PAGE } from './action-types'
+import { GET_COUNTRIES, GET_COUNTRIES_BY_ID, GET_COUNTRIES_BY_NAME, FILTER_CONTINENT, FILTER_ACTIVITY, SORT_COUNTRIES_NAME, SORT_COUNTRIES_POPULATION, CREATE_ACTIVITY, GET_ACTIVITY, DELETE_ACTIVITY, UPDATE_ACTIVITY, NEXT_PAGE, PREVIOUS_PAGE, CURRENT_PAGE } from './action-types'
 const initialState = {
     countries: [],
     allCountries: [],
@@ -33,10 +33,7 @@ const reducer = (state = initialState, action) => {
             const allCountriesFilter = state.allCountries.filter((country) => country.continent === action.payload);
             return {
                 ...state,
-                countries:
-                    action.payload === "All"
-                        ? state.allCountries
-                        : allCountriesFilter
+                countries: allCountriesFilter
             }
 
         case FILTER_ACTIVITY:
@@ -55,13 +52,13 @@ const reducer = (state = initialState, action) => {
         case SORT_COUNTRIES_NAME:
             return {
                 ...state,
-                countries: action.payload === "Alfabetico" ? state.countries.sort((a, b) => a.name.localeCompare(b.name)) : state.countries.sort(((a, b) => b.name.localeCompare(a.name)))
+                countries: action.payload === "Alphabetical" ? state.countries.sort((a, b) => a.name.localeCompare(b.name)) : state.countries.sort(((a, b) => b.name.localeCompare(a.name)))
             }
 
         case SORT_COUNTRIES_POPULATION:
             return {
                 ...state,
-                countries: action.payload === "MenorMayor" ? state.countries.sort((a, b) => a.population - b.population) : state.countries.sort((a, b) => b.population - a.population)
+                countries: action.payload === "Lower" ? state.countries.sort((a, b) => a.population - b.population) : state.countries.sort((a, b) => b.population - a.population)
             }
 
         case CREATE_ACTIVITY:
@@ -89,6 +86,28 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 activities: filterDelete
             }
+
+        case UPDATE_ACTIVITY:
+            const { id, name, difficulty, duration, season, countries,
+            } = action.payload
+            const updatedActivities = state.activities.map((activity) => {
+                if (activity.id === id) {
+                    return {
+                        ...activity,
+                        name,
+                        difficulty,
+                        duration,
+                        season,
+                        countries,
+                    };
+                }
+                return activity;
+            });
+            return {
+                ...state,
+                activities: updatedActivities,
+            };
+
 
         case NEXT_PAGE:
             return {

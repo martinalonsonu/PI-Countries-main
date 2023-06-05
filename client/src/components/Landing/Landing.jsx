@@ -1,10 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import style from "./Landing.module.css";
 
 function Landing() {
   return (
-    <div>
-      <h1>LANDING PAGE</h1>
+    <div className={style.container}>
       <Link to="/home">
         <button>INICIAR</button>
       </Link>

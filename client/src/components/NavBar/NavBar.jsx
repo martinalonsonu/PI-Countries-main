@@ -19,11 +19,11 @@ function NavBar() {
         <Link to="/home">
           <button>Home</button>
         </Link>
-        <Link to="/createactivity">
-          <button>Create Activity</button>
-        </Link>
         <Link to="/activities">
-          <button>Activity List</button>
+          <button>Activities</button>
+        </Link>
+        <Link to="/">
+          <button>Log Out</button>
         </Link>
       </div>
     </div>

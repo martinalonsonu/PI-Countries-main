@@ -1,7 +1,7 @@
 import React from "react";
 import style from "./Card.module.css";
 
-function Card({ id, name, flag, continent }) {
+function Card({ name, flag, continent }) {
   return (
     <div className={style.card}>
       <div className={style.imgContainer}>

@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { getCountriesByName, currentPage } from "../../redux/actions";
 import style from "./SearchBar.module.css";
 
-function SeachBar() {
+function SearchBar() {
   const [name, setName] = useState("");
   const dispatch = useDispatch();
 
@@ -26,4 +26,4 @@ function SeachBar() {
   );
 }
 
-export default SeachBar;
+export default SearchBar;

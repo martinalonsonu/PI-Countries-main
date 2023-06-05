@@ -1,17 +1,28 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getActivity, deleteActivity } from "../../redux/actions";
+import { Link } from "react-router-dom";
 import style from "./Activity.module.css";
 
 function Activity() {
   const { activities } = useSelector((state) => state);
   const dispatch = useDispatch();
+
   useEffect(() => {
     dispatch(getActivity());
   }, [dispatch]);
+
+  const handleDelete = (id) => {
+    const trueDelete = window.confirm(
+      "¿Está seguro que desea borrar la actividad?"
+    );
+    trueDelete && dispatch(deleteActivity(id));
+  };
+
   return (
     <div className={style.container}>
-      <h1>Activity List</h1>
+      <h2>Activity List</h2>
+      <Link to={"/create-activity"}>OYE</Link>
       <table className={style.tableInfo}>
         <thead>
           <tr>
@@ -29,17 +40,18 @@ function Activity() {
               <tr key={index}>
                 <td>{activ.name}</td>
                 <td>{activ.difficulty}</td>
-                <td>{activ.duration}</td>
+                <td>{activ.duration} hours</td>
                 <td>{activ.season}</td>
                 <td>
                   {activ.countries?.map((country, index) => (
-                    <p key={index}>{country.name}</p>
+                    <p key={index}> - {country.name}</p>
                   ))}
                 </td>
                 <td>
-                  <button onClick={() => dispatch(deleteActivity(activ.id))}>
-                    Borrar
-                  </button>
+                  <button onClick={() => handleDelete(activ.id)}>Delete</button>
+                  <Link to={`/update-activity/${activ.id}`}>
+                    <button>Edit</button>
+                  </Link>
                 </td>
               </tr>
             ))}
