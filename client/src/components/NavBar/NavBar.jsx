@@ -10,8 +10,9 @@ function NavBar() {
   return (
     <div className={style.container}>
       <div className={style.logo}>
-        <Link to="/home">
+        <Link className={style.link} to="/home">
           <img src={mundo} alt="imagenMundo" />
+          <h1>WorldApp</h1>
         </Link>
       </div>
       <div>{pathname === "/home" && <SearchBar />}</div>

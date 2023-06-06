@@ -6,26 +6,27 @@ import {
   updateActivity,
 } from "../../redux/actions";
 import { useSelector, useDispatch } from "react-redux";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import style from "./Form.module.css";
 
 function Form() {
   const dispatch = useDispatch();
+  const { pathname } = useLocation();
   const { countries, activities } = useSelector((state) => state);
   const { id } = useParams();
-  const navigate = useNavigate();
 
   const [activity, setActivity] = useState({
     name: "",
     difficulty: 0,
     duration: 0,
     season: "",
+    countries: [],
   });
-  const [selectedCountries, setSelectedCountries] = useState([]);
 
   useEffect(() => {
-    dispatch(getCountries());
     dispatch(getActivity());
+    dispatch(getCountries());
 
     const updatedActivity = activities.find((activ) => activ.id === Number(id));
     updatedActivity
@@ -35,6 +36,7 @@ function Form() {
           difficulty: 0,
           duration: 0,
           season: "",
+          countries: [],
         });
   }, [dispatch, id]);
 
@@ -51,27 +53,44 @@ function Form() {
       event.target.selectedOptions,
       (option) => option.value
     );
-    setSelectedCountries(selectedValues);
+    console.log(selectedValues);
+    setActivity((activity) => ({
+      ...activity,
+      countries: selectedValues,
+    }));
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
     if (id) {
-      const updatedActivity = { ...activity, countries: selectedCountries };
-      dispatch(updateActivity(id, updatedActivity));
-      dispatch(getActivity());
+      dispatch(updateActivity(activity));
+      alert("The activity was successfully updated");
     } else {
-      const newActivity = { ...activity, countries: selectedCountries };
-      dispatch(createActivity(newActivity));
-      dispatch(getActivity());
+      dispatch(createActivity(activity));
+      alert("The activity was created successfully");
     }
-    navigate("/activities");
+    setActivity({
+      name: "",
+      difficulty: 0,
+      duration: 0,
+      season: "",
+      countries: [],
+    });
   };
 
   return (
     <div className={style.container}>
       <form className={style.form} action="" onSubmit={handleSubmit}>
-        <h1>Create Activity</h1>
+        <div className={style.title}>
+          {pathname === "/create-activity" ? (
+            <h1>Create Activity</h1>
+          ) : (
+            <h1>Edit Activity</h1>
+          )}
+          <Link to="/activities">
+            <button className={style.returnButton}>Return</button>
+          </Link>
+        </div>
         <p>Name of the activity:</p>
         <input
           name="name"
@@ -116,7 +135,7 @@ function Form() {
         <div className="select-wrapper">
           <select
             name="countries"
-            value={selectedCountries}
+            value={activity.countries}
             onChange={handleChangeOptions}
             multiple
           >

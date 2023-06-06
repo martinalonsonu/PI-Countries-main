@@ -4,4 +4,6 @@ input {
     border: 1px solid #4a2512;
     background-color: #f4ddb4;
     border-radius: 10px;
+    font-family: 'Ubuntu', sans-serif;
+    font-style: italic;
 }

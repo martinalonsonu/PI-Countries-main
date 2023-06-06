@@ -7,8 +7,6 @@ import Landing from './components/Landing/Landing';
 import NavBar from './components/NavBar/NavBar';
 import Activity from './components/Activity/Activity';
 
-
-
 function App() {
     const { pathname } = useLocation();
 

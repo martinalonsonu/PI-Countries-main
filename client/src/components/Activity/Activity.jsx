@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getActivity, deleteActivity } from "../../redux/actions";
+import { getActivity, deleteActivity, getCountries } from "../../redux/actions";
 import { Link } from "react-router-dom";
 import style from "./Activity.module.css";
 
@@ -10,8 +10,10 @@ function Activity() {
 
   useEffect(() => {
     dispatch(getActivity());
+    dispatch(getCountries());
   }, [dispatch]);
 
+  console.log(activities);
   const handleDelete = (id) => {
     const trueDelete = window.confirm(
       "¿Está seguro que desea borrar la actividad?"
@@ -21,8 +23,12 @@ function Activity() {
 
   return (
     <div className={style.container}>
-      <h2>Activity List</h2>
-      <Link to={"/create-activity"}>OYE</Link>
+      <div className={`${style.title} title`}>
+        <h2>Activity List</h2>
+        <Link to="/create-activity">
+          <button className={style.create}>Create</button>
+        </Link>
+      </div>
       <table className={style.tableInfo}>
         <thead>
           <tr>
@@ -44,14 +50,19 @@ function Activity() {
                 <td>{activ.season}</td>
                 <td>
                   {activ.countries?.map((country, index) => (
-                    <p key={index}> - {country.name}</p>
+                    <p key={index}> - {country?.name}</p>
                   ))}
                 </td>
                 <td>
-                  <button onClick={() => handleDelete(activ.id)}>Delete</button>
                   <Link to={`/update-activity/${activ.id}`}>
-                    <button>Edit</button>
+                    <button className={style.update}>Update</button>
                   </Link>
+                  <button
+                    className={style.delete}
+                    onClick={() => handleDelete(activ.id)}
+                  >
+                    Delete
+                  </button>
                 </td>
               </tr>
             ))}

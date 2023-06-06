@@ -67,12 +67,31 @@ const reducer = (state = initialState, action) => {
                 difficulty: action.payload.difficulty,
                 duration: action.payload.duration,
                 season: action.payload.season,
-                countries: action.payload.countries
+                countries: action.payload.countries,
             }
             return {
                 ...state,
                 activities: [...state.activities, activity]
             }
+
+        case UPDATE_ACTIVITY:
+            const updatedActivities = state.activities.map((activity) => {
+                if (activity.id === action.payload.id) {
+                    return {
+                        ...activity,
+                        name: action.payload.name,
+                        difficulty: action.payload.difficulty,
+                        duration: action.payload.duration,
+                        season: action.payload.season,
+                        countries: action.payload.countries,
+                    };
+                }
+                return activity;
+            });
+            return {
+                ...state,
+                activities: updatedActivities,
+            };
 
         case GET_ACTIVITY:
             return {
@@ -86,27 +105,6 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 activities: filterDelete
             }
-
-        case UPDATE_ACTIVITY:
-            const { id, name, difficulty, duration, season, countries,
-            } = action.payload
-            const updatedActivities = state.activities.map((activity) => {
-                if (activity.id === id) {
-                    return {
-                        ...activity,
-                        name,
-                        difficulty,
-                        duration,
-                        season,
-                        countries,
-                    };
-                }
-                return activity;
-            });
-            return {
-                ...state,
-                activities: updatedActivities,
-            };
 
 
         case NEXT_PAGE:

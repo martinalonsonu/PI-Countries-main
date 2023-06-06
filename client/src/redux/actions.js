@@ -129,8 +129,8 @@ export const deleteActivity = (id) => {
     }
 }
 
-export const updateActivity = (id, activity) => {
-    const endpoint = `http://localhost:3001/activities/${id}`
+export const updateActivity = (activity) => {
+    const endpoint = `http://localhost:3001/activities/${activity.id}`
     return async (dispatch) => {
         try {
             await axios.put(endpoint, activity)

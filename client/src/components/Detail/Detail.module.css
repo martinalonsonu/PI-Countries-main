@@ -1,0 +1,56 @@
+.principal {
+    display: flex;
+    flex-wrap: wrap;
+    text-decoration: none;
+}
+
+.detailContainer {
+    background-color: rgba(255, 255, 255, 0.9);
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 70px;
+    border-radius: 25px;
+    margin: 120px auto 30px;
+    box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.7);
+}
+
+.detailContainer img {
+    max-width: 400px;
+    margin-right: 50px;
+    border-radius: 15px;
+}
+
+.detailContainer .detail-content {
+    flex: 1;
+}
+
+.detailContainer h1 {
+    margin-top: 0;
+    margin-bottom: 5px;
+    font-family: 'Ubuntu', sans-serif;
+    font-size: xxx-large;
+    font-weight: 700;
+}
+
+.detailContainer p {
+    margin-bottom: 10px;
+    font-family: 'Comfortaa', cursive;
+    font-size: medium;
+}
+
+.detailContainer button {
+    margin: 5px;
+    background-color: #f1ae2b;
+    border: none;
+    border-radius: 15px;
+    padding: 10px;
+    cursor: pointer;
+    font-family: 'Ubuntu', sans-serif;
+    transition: transform 0.5 ease;
+}
+
+.detailContainer button:hover {
+    transform: scale(1.2);
+}

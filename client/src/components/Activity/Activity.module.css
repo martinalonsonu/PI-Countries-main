@@ -3,6 +3,52 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    margin: 90px auto 0;
+}
+
+.container .title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 50%;
+    margin-top: 30px;
+    margin-bottom: 10px;
+}
+
+.container .title h2 {
+    font-family: 'Ubuntu', sans-serif;
+    font-weight: 700;
+    margin: 0;
+    background-color: white;
+    padding: 10px;
+    border-radius: 15px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.container button {
+    font-family: 'Ubuntu', sans-serif;
+    font-weight: 700;
+    padding: 10px;
+    border-radius: 15px;
+    border: none;
+    margin-right: 5px;
+    cursor: pointer;
+    transition: transform 0.5 ease;
+}
+
+.create {
+    background-color: rgb(10, 205, 10);
+    color: white
+}
+
+.update {
+    background-color: blue;
+    color: white;
+}
+
+.delete {
+    background-color: red;
+    color: white;
 }
 
 .tableInfo {
@@ -10,12 +56,14 @@
     margin: 5px;
     border-radius: 25px;
     overflow: hidden;
+    margin-bottom: 50px;
 }
 
 .tableInfo td,
 .tableInfo th {
     border: 3px solid #ddd;
     padding: 8px;
+    font-family: 'Comfortaa', cursive;
 }
 
 .tableInfo tr {
@@ -31,8 +79,13 @@
 }
 
 .tableInfo tr:hover {
-    background-color: rgba(128, 124, 66, 0.8)
+    background-color: rgba(208, 206, 180, 0.9);
 }
+
+.container button:hover {
+    transform: scale(1.2);
+}
+
 
 
 /* .color1 { #72bca5 };

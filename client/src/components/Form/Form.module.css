@@ -2,6 +2,7 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    margin: 90px auto 0;
 }
 
 .form {
@@ -20,10 +21,18 @@
 .form h1 {
     margin-top: 10px;
     margin-bottom: 10px;
+    font-family: 'Ubuntu', sans-serif;
+    font-weight: 700;
+}
+
+.form p {
+    font-family: 'Comfortaa', cursive;
 }
 
 .form input {
     background-color: azure;
+    font-family: 'Comfortaa', cursive;
+    font-style: normal;
 }
 
 .form .selectSeason {
@@ -33,6 +42,7 @@
     background-color: #f7d590;
     box-shadow: 5px 4px 6px rgba(0, 0, 0, 0.5);
     cursor: pointer;
+    font-family: 'Comfortaa', cursive;
 }
 
 .form .moreCountry {
@@ -59,10 +69,18 @@
     padding: 10px;
     border-radius: 15px;
     background-color: #f1ae2b;
-    border: 1px solid #4a2512;
+    border: none;
     cursor: pointer;
     transition: transform 0.5 ease;
+    font-family: 'Comfortaa', cursive;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.5);
 }
+
+.title {
+    display: flex;
+    flex-direction: row;
+}
+
 
 .form button:hover {
     transform: scale(1.2);

@@ -6,33 +6,55 @@
     justify-content: space-between;
     padding: 20px;
     box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.3);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 9999;
 }
 
 .logo {
     display: flex;
     align-items: center;
-    justify-content: center;
+    margin-left: -160px;
     cursor: pointer;
 }
 
+.link {
+    display: flex;
+    justify-content: center;
+    text-decoration: none;
+}
+
+.link h1 {
+    font-family: 'Ubuntu', sans-serif;
+    font-size: xx-large;
+    font-weight: 700;
+    margin: 15px;
+    color: whitesmoke;
+}
+
 .logo img {
-    width: 15%;
+    width: 10%;
 }
 
 .buttonPage {
-    margin: 10px;
+    margin: 80px;
 }
 
 .buttonPage button {
     margin: 5px;
     background-color: #f1ae2b;
-    border: 1px solid #4a2512;
+    border: none;
     border-radius: 15px;
     padding: 10px;
     cursor: pointer;
+    font-family: 'Ubuntu', sans-serif;
+    transition: transform 0.5 ease;
 }
 
 .buttonPage button:hover {
     color: white;
     background-color: #4a2512;
+    transform: scale(1.2);
 }
