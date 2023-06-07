@@ -22,7 +22,7 @@ function Form() {
   const [activity, setActivity] = useState({
     name: "",
     difficulty: 1,
-    duration: 0,
+    duration: 1,
     season: "",
     countries: [],
   });
@@ -31,12 +31,15 @@ function Form() {
     dispatch(getActivity());
     dispatch(getCountries());
 
+    const initialErrors = validate(activity);
+    setErrors(initialErrors);
+
     const updatedActivity = activities.find((activ) => activ.id === Number(id));
     setActivity(
       updatedActivity || {
         name: "",
         difficulty: 1,
-        duration: 0,
+        duration: 1,
         season: "",
         countries: [],
       }
@@ -99,6 +102,16 @@ function Form() {
         }
       }
     }
+  };
+
+  const handleClear = () => {
+    setActivity({
+      name: "",
+      difficulty: 1,
+      duration: 1,
+      season: "",
+      countries: [],
+    });
   };
 
   return (
@@ -191,12 +204,16 @@ function Form() {
           )}
         </div>
         <button
+          type="submit"
           className={
             Object.keys(errors).length > 0 ? style.disabled : style.button
           }
           disabled={Object.keys(errors).length > 0}
         >
           Submit
+        </button>
+        <button type="button" className={style.button} onClick={handleClear}>
+          Clear All
         </button>
       </form>
     </div>
