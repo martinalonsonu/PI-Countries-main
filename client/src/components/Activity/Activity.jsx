@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getActivity, deleteActivity, getCountries } from "../../redux/actions";
+import { getActivity, deleteActivity } from "../../redux/actions";
 import { Link } from "react-router-dom";
 import style from "./Activity.module.css";
 
@@ -10,13 +10,11 @@ function Activity() {
 
   useEffect(() => {
     dispatch(getActivity());
-    dispatch(getCountries());
   }, [dispatch]);
 
-  console.log(activities);
   const handleDelete = (id) => {
     const trueDelete = window.confirm(
-      "¿Está seguro que desea borrar la actividad?"
+      "Are you sure you want to delete the activity?"
     );
     trueDelete && dispatch(deleteActivity(id));
   };
@@ -25,18 +23,18 @@ function Activity() {
     <div className={style.container}>
       <div className={`${style.title} title`}>
         <h2>Activity List</h2>
-        <Link to="/create-activity">
-          <button className={style.create}>Create</button>
+        <Link className={style.link} to="/create-activity">
+          <button className={style.create}>+</button>
         </Link>
       </div>
       <table className={style.tableInfo}>
         <thead>
           <tr>
             <th>Name</th>
-            <th>Difficulty</th>
-            <th>Duration</th>
+            <th>Difficulty (scale from 1 to 5)</th>
+            <th>Duration (in hours)</th>
             <th>Season</th>
-            <th>Countries</th>
+            <th>Countries of practice</th>
             <th>Actions</th>
           </tr>
         </thead>

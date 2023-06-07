@@ -6,8 +6,8 @@ import {
   updateActivity,
 } from "../../redux/actions";
 import { useSelector, useDispatch } from "react-redux";
-import { useParams, useLocation } from "react-router-dom";
-import { Link } from "react-router-dom";
+import { useParams, useLocation, useNavigate } from "react-router-dom";
+import validate from "./validate";
 import style from "./Form.module.css";
 
 function Form() {
@@ -15,10 +15,13 @@ function Form() {
   const { pathname } = useLocation();
   const { countries, activities } = useSelector((state) => state);
   const { id } = useParams();
+  const navigate = useNavigate();
+
+  const [errors, setErrors] = useState({});
 
   const [activity, setActivity] = useState({
     name: "",
-    difficulty: 0,
+    difficulty: 1,
     duration: 0,
     season: "",
     countries: [],
@@ -29,23 +32,27 @@ function Form() {
     dispatch(getCountries());
 
     const updatedActivity = activities.find((activ) => activ.id === Number(id));
-    updatedActivity
-      ? setActivity(updatedActivity)
-      : setActivity({
-          name: "",
-          difficulty: 0,
-          duration: 0,
-          season: "",
-          countries: [],
-        });
+    setActivity(
+      updatedActivity || {
+        name: "",
+        difficulty: 1,
+        duration: 0,
+        season: "",
+        countries: [],
+      }
+    );
   }, [dispatch, id]);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
-    setActivity((activity) => ({
+    const newActivity = {
       ...activity,
       [name]: value,
-    }));
+    };
+    const newErrors = validate(newActivity);
+
+    setActivity(newActivity);
+    setErrors(newErrors);
   };
 
   const handleChangeOptions = (event) => {
@@ -53,29 +60,45 @@ function Form() {
       event.target.selectedOptions,
       (option) => option.value
     );
-    console.log(selectedValues);
-    setActivity((activity) => ({
+
+    const newActivity = {
       ...activity,
       countries: selectedValues,
-    }));
+    };
+    const newErrors = validate(newActivity);
+
+    setActivity(newActivity);
+    setErrors(newErrors);
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    if (id) {
-      dispatch(updateActivity(activity));
-      alert("The activity was successfully updated");
-    } else {
-      dispatch(createActivity(activity));
-      alert("The activity was created successfully");
+    if (
+      !errors.name &&
+      !errors.difficulty &&
+      !errors.duration &&
+      !errors.season &&
+      !errors.countries
+    ) {
+      if (id) {
+        dispatch(updateActivity(activity));
+        alert("The activity was successfully updated");
+        navigate(-1);
+      } else {
+        const activitySearch = activities.find(
+          (activityState) => activityState.name === activity.name
+        );
+        if (!activitySearch) {
+          dispatch(createActivity(activity));
+          alert("The activity was created successfully");
+          navigate(-1);
+        } else {
+          alert(
+            "There is already an activity registered with this name, please try another one."
+          );
+        }
+      }
     }
-    setActivity({
-      name: "",
-      difficulty: 0,
-      duration: 0,
-      season: "",
-      countries: [],
-    });
   };
 
   return (
@@ -87,9 +110,6 @@ function Form() {
           ) : (
             <h1>Edit Activity</h1>
           )}
-          <Link to="/activities">
-            <button className={style.returnButton}>Return</button>
-          </Link>
         </div>
         <p>Name of the activity:</p>
         <input
@@ -99,20 +119,31 @@ function Form() {
           onChange={handleChange}
           placeholder="Example: Trekking"
         />
+        {errors.name && <p className={style.errorMessage}>{errors.name}</p>}
         <p>Difficulty level:</p>
         <input
           name="difficulty"
           type="number"
           value={activity.difficulty}
           onChange={handleChange}
+          min={1}
+          max={5}
         />
+        {errors.difficulty && (
+          <p className={style.errorMessage}>{errors.difficulty}</p>
+        )}
         <p>Duration of the activity (in hours): </p>
         <input
           name="duration"
           type="number"
           value={activity.duration}
           onChange={handleChange}
+          min={1}
+          max={12}
         />
+        {errors.duration && (
+          <p className={style.errorMessage}>{errors.duration}</p>
+        )}
         <p>Realization season: </p>
         <select
           className={style.selectSeason}
@@ -128,6 +159,7 @@ function Form() {
           <option value="Fall">Fall</option>
           <option value="Winter">Winter</option>
         </select>
+        {errors.season && <p className={style.errorMessage}>{errors.season}</p>}
         <p>Country(ies) of realization: </p>
         <p className={style.moreCountry}>
           To select more than one country use CTRL + CLICK
@@ -154,8 +186,18 @@ function Form() {
                 </option>
               ))}
           </select>
+          {errors.countries && (
+            <p className={style.errorMessage}>{errors.countries}</p>
+          )}
         </div>
-        <button>Submit</button>
+        <button
+          className={
+            Object.keys(errors).length > 0 ? style.disabled : style.button
+          }
+          disabled={Object.keys(errors).length > 0}
+        >
+          Submit
+        </button>
       </form>
     </div>
   );

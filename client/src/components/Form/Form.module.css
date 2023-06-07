@@ -63,7 +63,7 @@
 }
 
 
-.form button {
+.form .button {
     margin-top: 5%;
     margin-left: 43%;
     padding: 10px;
@@ -76,12 +76,35 @@
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
+.form .disabled {
+    margin-top: 5%;
+    margin-left: 43%;
+    padding: 10px;
+    border-radius: 15px;
+    background-color: rgb(179, 179, 179);
+    color: rgb(76, 76, 76);
+    border: none;
+    cursor: not-allowed;
+    transition: none;
+    font-family: 'Comfortaa', cursive;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+
+
 .title {
     display: flex;
     flex-direction: row;
 }
 
+.form .errorMessage {
+    font-family: 'IBM Plex Mono', monospace;
+    color: red;
+    font-weight: 600;
+    font-size: small;
+}
 
-.form button:hover {
+
+.form .button:hover {
     transform: scale(1.2);
 }

@@ -12,3 +12,4 @@ export const UPDATE_ACTIVITY = "UPDATE_ACTIVITY"
 export const NEXT_PAGE = "NEXT_PAGE"
 export const PREVIOUS_PAGE = "PREVIOUS_PAGE"
 export const CURRENT_PAGE = "CURRENT_PAGE"
+
