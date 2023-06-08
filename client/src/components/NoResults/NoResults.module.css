@@ -1,0 +1,39 @@
+.principal {
+    display: flex;
+    flex-wrap: wrap;
+    text-decoration: none;
+}
+
+.resultContainer {
+    background-color: rgba(255, 255, 255, 0.9);
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 70px;
+    border-radius: 25px;
+    margin: 120px auto 30px;
+    box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.7);
+}
+
+.resultContainer img {
+    width: 350px;
+    margin-right: 50px;
+    border-radius: 15px;
+}
+
+.resultContainer h2 {
+    font-family: 'Ubuntu', sans-serif;
+    font-size: xxx-large;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+.resultContainer p {
+    font-family: 'Comfortaa', cursive;
+    font-size: large;
+}
+
+.resultContainer .textContainer {
+    flex: 1;
+}

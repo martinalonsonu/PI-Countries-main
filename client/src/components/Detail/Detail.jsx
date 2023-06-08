@@ -1,26 +1,30 @@
 import React, { useEffect } from "react";
+import Loading from "../Loading/Loading";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getCountriesById } from "../../redux/actions";
+import { getCountriesById, loadingPage } from "../../redux/actions";
 import style from "./Detail.module.css";
 
 function Detail() {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  const { country_detail } = useSelector((state) => state);
+  const { country_detail, loading } = useSelector((state) => state);
   const dispatch = useDispatch();
 
   useEffect(() => {
+    dispatch(loadingPage(true));
     dispatch(getCountriesById(id));
+    setTimeout(() => dispatch(loadingPage(false)), 1000);
   }, [dispatch, id]);
 
   const backPage = () => {
     navigate(-1);
   };
 
-  console.log(country_detail);
-  return (
+  return loading ? (
+    <Loading />
+  ) : (
     <div className={style.principal}>
       <div className={style.detailContainer}>
         <img

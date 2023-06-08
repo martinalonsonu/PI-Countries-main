@@ -1,15 +1,18 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getActivity, deleteActivity } from "../../redux/actions";
+import { getActivity, deleteActivity, loadingPage } from "../../redux/actions";
 import { Link } from "react-router-dom";
 import style from "./Activity.module.css";
+import Loading from "../Loading/Loading";
 
 function Activity() {
-  const { activities } = useSelector((state) => state);
+  const { activities, loading } = useSelector((state) => state);
   const dispatch = useDispatch();
 
   useEffect(() => {
+    dispatch(loadingPage(true));
     dispatch(getActivity());
+    setTimeout(() => dispatch(loadingPage(false)), 1000);
   }, [dispatch]);
 
   const handleDelete = (id) => {
@@ -19,7 +22,9 @@ function Activity() {
     trueDelete && dispatch(deleteActivity(id));
   };
 
-  return (
+  return loading ? (
+    <Loading />
+  ) : (
     <div className={style.container}>
       <div className={`${style.title} title`}>
         <h2>Activity List</h2>

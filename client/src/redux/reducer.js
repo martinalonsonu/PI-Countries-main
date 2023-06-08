@@ -1,10 +1,11 @@
-import { GET_COUNTRIES, GET_COUNTRIES_BY_ID, GET_COUNTRIES_BY_NAME, FILTER_CONTINENT, FILTER_ACTIVITY, SORT_COUNTRIES_NAME, SORT_COUNTRIES_POPULATION, CREATE_ACTIVITY, GET_ACTIVITY, DELETE_ACTIVITY, UPDATE_ACTIVITY, NEXT_PAGE, PREVIOUS_PAGE, CURRENT_PAGE } from './action-types'
+import { GET_COUNTRIES, GET_COUNTRIES_BY_ID, GET_COUNTRIES_BY_NAME, FILTER_CONTINENT, FILTER_ACTIVITY, SORT_COUNTRIES_NAME, SORT_COUNTRIES_POPULATION, CREATE_ACTIVITY, GET_ACTIVITY, DELETE_ACTIVITY, UPDATE_ACTIVITY, NEXT_PAGE, PREVIOUS_PAGE, CURRENT_PAGE, LOADING } from './action-types'
 const initialState = {
     countries: [],
     allCountries: [],
     country_detail: {},
     activities: [],
     page: 1,
+    loading: false,
 }
 
 const reducer = (state = initialState, action) => {
@@ -76,7 +77,7 @@ const reducer = (state = initialState, action) => {
 
         case UPDATE_ACTIVITY:
             const updatedActivities = state.activities.map((activity) => {
-                if (activity.id === action.payload.id) {
+                if (activity.id === action.id) {
                     return {
                         ...activity,
                         name: action.payload.name,
@@ -123,6 +124,12 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 page: Number(action.payload)
+            }
+
+        case LOADING:
+            return {
+                ...state,
+                loading: action.payload,
             }
 
         default:

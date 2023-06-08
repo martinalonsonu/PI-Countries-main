@@ -34,16 +34,21 @@ function Form() {
     const initialErrors = validate(activity);
     setErrors(initialErrors);
 
-    const updatedActivity = activities.find((activ) => activ.id === Number(id));
-    setActivity(
-      updatedActivity || {
-        name: "",
-        difficulty: 1,
-        duration: 1,
-        season: "",
-        countries: [],
-      }
-    );
+    if (id) {
+      const updatedActivity = activities.find(
+        (activ) => activ.id === Number(id)
+      );
+      const countriesupdatedActivity = updatedActivity.countries?.map(
+        (country) => country.name
+      );
+      setActivity({
+        name: updatedActivity.name,
+        difficulty: updatedActivity.difficulty,
+        duration: updatedActivity.duration,
+        season: updatedActivity.season,
+        countries: countriesupdatedActivity,
+      });
+    }
   }, [dispatch, id]);
 
   const handleChange = (event) => {
@@ -59,19 +64,33 @@ function Form() {
   };
 
   const handleChangeOptions = (event) => {
-    const selectedValues = Array.from(
-      event.target.selectedOptions,
-      (option) => option.value
+    const selectValue = event.target.value;
+
+    const validateCountry = activity.countries.find(
+      (country) => country === selectValue
     );
 
-    const newActivity = {
-      ...activity,
-      countries: selectedValues,
-    };
-    const newErrors = validate(newActivity);
+    if (!validateCountry) {
+      const newActivity = {
+        ...activity,
+        countries: [...activity.countries, selectValue],
+      };
 
-    setActivity(newActivity);
-    setErrors(newErrors);
+      const newErrors = validate(newActivity);
+
+      setActivity(newActivity);
+      setErrors(newErrors);
+    }
+  };
+
+  const handleDeleteCountry = (country) => {
+    const searchCountry = activity.countries.filter(
+      (countries) => country !== countries
+    );
+    setActivity({
+      ...activity,
+      countries: searchCountry,
+    });
   };
 
   const handleSubmit = (event) => {
@@ -84,7 +103,7 @@ function Form() {
       !errors.countries
     ) {
       if (id) {
-        dispatch(updateActivity(activity));
+        dispatch(updateActivity(activity, id));
         alert("The activity was successfully updated");
         navigate(-1);
       } else {
@@ -180,16 +199,10 @@ function Form() {
         <div className="select-wrapper">
           <select
             name="countries"
-            value={activity.countries}
+            className={style.selectCountry}
             onChange={handleChangeOptions}
-            multiple
           >
-            <option
-              className={style.selectCountry}
-              value=""
-              disabled
-              defaultValue
-            >
+            <option value="" disabled defaultValue>
               Country
             </option>
             {countries &&
@@ -203,18 +216,42 @@ function Form() {
             <p className={style.errorMessage}>{errors.countries}</p>
           )}
         </div>
-        <button
-          type="submit"
-          className={
-            Object.keys(errors).length > 0 ? style.disabled : style.button
-          }
-          disabled={Object.keys(errors).length > 0}
-        >
-          Submit
-        </button>
-        <button type="button" className={style.button} onClick={handleClear}>
-          Clear All
-        </button>
+        <div className={style.renderCountriesContainer}>
+          {activity.countries &&
+            activity.countries?.map((country, index) => (
+              <div key={index} className={style.countriesSelected}>
+                <p>{country}</p>
+                <button
+                  type="button"
+                  onClick={() => handleDeleteCountry(country)}
+                >
+                  x
+                </button>
+              </div>
+            ))}
+        </div>
+        <div className={style.buttonContainer}>
+          <button
+            type="submit"
+            className={
+              Object.keys(errors).length > 0 ? style.disabled : style.button
+            }
+            disabled={Object.keys(errors).length > 0}
+          >
+            Submit
+          </button>
+          {pathname === "/create-activity" ? (
+            <button
+              type="button"
+              className={style.button}
+              onClick={handleClear}
+            >
+              Clear
+            </button>
+          ) : (
+            ""
+          )}
+        </div>
       </form>
     </div>
   );

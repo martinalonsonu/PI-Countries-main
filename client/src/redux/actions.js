@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { GET_COUNTRIES, GET_COUNTRIES_BY_ID, GET_COUNTRIES_BY_NAME, FILTER_CONTINENT, FILTER_ACTIVITY, SORT_COUNTRIES_NAME, SORT_COUNTRIES_POPULATION, CREATE_ACTIVITY, GET_ACTIVITY, DELETE_ACTIVITY, UPDATE_ACTIVITY, NEXT_PAGE, PREVIOUS_PAGE, CURRENT_PAGE } from './action-types'
+import { GET_COUNTRIES, GET_COUNTRIES_BY_ID, GET_COUNTRIES_BY_NAME, FILTER_CONTINENT, FILTER_ACTIVITY, SORT_COUNTRIES_NAME, SORT_COUNTRIES_POPULATION, CREATE_ACTIVITY, GET_ACTIVITY, DELETE_ACTIVITY, UPDATE_ACTIVITY, NEXT_PAGE, PREVIOUS_PAGE, CURRENT_PAGE, LOADING } from './action-types'
 
 export const getCountries = () => {
     const endpoint = 'http://localhost:3001/countries';
@@ -129,14 +129,15 @@ export const deleteActivity = (id) => {
     }
 }
 
-export const updateActivity = (activity) => {
-    const endpoint = `http://localhost:3001/activities/${activity.id}`
+export const updateActivity = (activity, id) => {
+    const endpoint = `http://localhost:3001/activities/${id}`
     return async (dispatch) => {
         try {
             await axios.put(endpoint, activity)
             return dispatch({
                 type: UPDATE_ACTIVITY,
-                payload: activity
+                payload: activity,
+                id,
             })
         } catch (error) {
             return { error: error.message };
@@ -165,6 +166,15 @@ export const currentPage = (page) => {
         return dispatch({
             type: CURRENT_PAGE,
             payload: page,
+        })
+    }
+}
+
+export const loadingPage = (boolean) => {
+    return (dispatch) => {
+        return dispatch({
+            type: LOADING,
+            payload: boolean
         })
     }
 }
