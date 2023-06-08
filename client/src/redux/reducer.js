@@ -6,6 +6,8 @@ const initialState = {
     activities: [],
     page: 1,
     loading: false,
+    filterContinent: "",
+    filterActivity: "",
 }
 
 const reducer = (state = initialState, action) => {
@@ -31,35 +33,43 @@ const reducer = (state = initialState, action) => {
             }
 
         case FILTER_CONTINENT:
-            const allCountriesFilter = state.allCountries.filter((country) => country.continent === action.payload);
-            return {
-                ...state,
-                countries: allCountriesFilter
-            }
-
-        case FILTER_ACTIVITY:
-            const activityFilterCountry = state.allCountries.filter((country) =>
-                country.activities.find((activity) => activity.name === action.payload)
+            const continentFilter = state.allCountries.filter((country) => country.continent === action.payload);
+            const continentActivityFilter = continentFilter.filter((country) =>
+                country.activities.find((activity) => activity.name === state.filterActivity)
             );
             return {
                 ...state,
-                countries:
-                    action.payload === "All"
-                        ? state.allCountries
-                        : activityFilterCountry
+                countries: state.filterActivity.length === 0 ? continentFilter
+                    : continentActivityFilter,
+                filterContinent: action.payload
+            }
+
+        case FILTER_ACTIVITY:
+            const activityFilter = state.allCountries.filter((country) =>
+                country.activities.find((activity) => activity.name === action.payload)
+            );
+            const activityContinentFilter = activityFilter.filter((country) =>
+                country.continent === state.filterContinent);
+            return {
+                ...state,
+                countries: state.filterContinent.length === 0 ? activityFilter
+                    : activityContinentFilter,
+                filterActivity: action.payload
             };
 
 
         case SORT_COUNTRIES_NAME:
             return {
                 ...state,
-                countries: action.payload === "Alphabetical" ? state.countries.sort((a, b) => a.name.localeCompare(b.name)) : state.countries.sort(((a, b) => b.name.localeCompare(a.name)))
+                countries: action.payload === "Alphabetical" ? state.countries.sort((a, b) => a.name.localeCompare(b.name))
+                    : state.countries.sort(((a, b) => b.name.localeCompare(a.name)))
             }
 
         case SORT_COUNTRIES_POPULATION:
             return {
                 ...state,
-                countries: action.payload === "Lower" ? state.countries.sort((a, b) => a.population - b.population) : state.countries.sort((a, b) => b.population - a.population)
+                countries: action.payload === "Lower" ? state.countries.sort((a, b) => a.population - b.population)
+                    : state.countries.sort((a, b) => b.population - a.population)
             }
 
         case CREATE_ACTIVITY:

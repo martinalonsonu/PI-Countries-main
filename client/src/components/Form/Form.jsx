@@ -38,7 +38,7 @@ function Form() {
       const updatedActivity = activities.find(
         (activ) => activ.id === Number(id)
       );
-      const countriesupdatedActivity = updatedActivity.countries?.map(
+      const countriesUpdatedActivity = updatedActivity.countries?.map(
         (country) => country.name
       );
       setActivity({
@@ -46,7 +46,7 @@ function Form() {
         difficulty: updatedActivity.difficulty,
         duration: updatedActivity.duration,
         season: updatedActivity.season,
-        countries: countriesupdatedActivity,
+        countries: countriesUpdatedActivity,
       });
     }
   }, [dispatch, id]);
@@ -164,7 +164,7 @@ function Form() {
         {errors.difficulty && (
           <p className={style.errorMessage}>{errors.difficulty}</p>
         )}
-        <p>Duration of the activity (in hours): </p>
+        <p>Duration of the activity (max 12 hours): </p>
         <input
           name="duration"
           type="number"

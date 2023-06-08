@@ -47,12 +47,14 @@ function Filters() {
     dispatch(getCountries());
     dispatch(getActivity());
     dispatch(currentPage(1));
+    dispatch(filterCountries(""));
+    dispatch(filterActivities(""));
   };
 
   return (
     <div className={style.filters}>
-      <select onChange={handleFilterContinent}>
-        <option value="filter" disabled="disabled" selected>
+      <select onChange={handleFilterContinent} defaultValue="">
+        <option value="" disabled="disabled" selected>
           Filter by continent
         </option>
         {continents.map((continent, index) => (

@@ -18,7 +18,7 @@ function Home() {
   useEffect(() => {
     dispatch(loadingPage(true));
     dispatch(getCountries());
-    setTimeout(() => dispatch(loadingPage(false)), 1000);
+    setTimeout(() => dispatch(loadingPage(false)), 1500);
   }, [dispatch]);
 
   //Paginación
@@ -27,7 +27,7 @@ function Home() {
   const numberPages = Math.ceil(countries.length / numberCards);
   const countriesSlice = countries.slice(index, index + numberCards);
 
-  if (countries.length === 0) {
+  if (loading === false && countries.length === 0) {
     return <NoResults />;
   }
 

@@ -1,4 +1,7 @@
 .container {
+    display: flex;
+    align-items: flex-start;
+    justify-content: start;
     min-height: 100vh;
     background-image: url("../../images/world.png");
     background-size: cover;
@@ -6,4 +9,41 @@
     background-repeat: no-repeat;
     background-attachment: fixed;
     margin: 0;
+}
+
+
+.welcome img {
+    width: 45%;
+    margin-top: 90px;
+}
+
+.welcome h1 {
+    font-family: 'Ubuntu', sans-serif;
+    font-size: xxx-large;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.welcome p {
+    font-family: 'Comfortaa', cursive;
+    font-size: 25px;
+    margin-bottom: 5px;
+}
+
+
+.welcome button {
+    margin-top: 5%;
+    margin-left: 10px;
+    padding: 10px;
+    border-radius: 15px;
+    background-color: #f1ae2b;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.5 ease;
+    font-family: 'Comfortaa', cursive;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.welcome button:hover {
+    transform: scale(1.2);
 }

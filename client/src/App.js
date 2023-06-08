@@ -6,6 +6,7 @@ import Home from './components/Home/Home';
 import Landing from './components/Landing/Landing';
 import NavBar from './components/NavBar/NavBar';
 import Activity from './components/Activity/Activity';
+import NotFound from './components/NotFound/NotFound';
 
 function App() {
     const { pathname } = useLocation();
@@ -21,6 +22,7 @@ function App() {
                     <Route path='/activities' element={<Activity />} />
                     <Route path='/create-activity' element={<Form />} />
                     <Route path='/update-activity/:id' element={<Form />} />
+                    <Route path='*' element={<NotFound />} />
                 </Routes>
             </div>
         </div>
