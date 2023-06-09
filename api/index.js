@@ -34,7 +34,4 @@ conn.sync({ force: true })
             console.error('Error al sincronizar los modelos:', error);
         }
     })
-    .catch((error) => {
-        console.error('Error al sincronizar los modelos:', error);
-    });
 

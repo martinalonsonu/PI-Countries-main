@@ -41,6 +41,7 @@ const getCountryName = async (name) => {
                 {
                     model: Activity,
                     attributes: ["id", "name", "difficulty", "duration", "season"],
+                    through: []
                 },
             ],
         });
@@ -67,6 +68,7 @@ const getCountryId = async (id) => {
                 {
                     model: Activity,
                     attributes: ["id", "name", "difficulty", "duration", "season"],
+                    through: []
                 },
             ],
         })
