@@ -156,10 +156,10 @@ function Form() {
                 {errors.name && (
                     <p className={style.errorMessage}>{errors.name}</p>
                 )}
-                <p>Difficulty level:</p>
+                <p>Difficulty level: {activity.difficulty}</p>
                 <input
                     name="difficulty"
-                    type="number"
+                    type="range"
                     value={activity.difficulty}
                     onChange={handleChange}
                     min={1}
@@ -168,10 +168,13 @@ function Form() {
                 {errors.difficulty && (
                     <p className={style.errorMessage}>{errors.difficulty}</p>
                 )}
-                <p>Duration of the activity (max 12 hours): </p>
+                <p>
+                    Duration of the activity (max 12 hours): {activity.duration}{" "}
+                    hours
+                </p>
                 <input
                     name="duration"
-                    type="number"
+                    type="range"
                     value={activity.duration}
                     onChange={handleChange}
                     min={1}
