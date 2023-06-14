@@ -31,12 +31,20 @@
     font-size: x-large;
     font-weight: 700;
     color: #4a2512;
-    margin-bottom: 5px;
+    margin-bottom: -10px;
 }
 
 .textContainer p {
     font-family: 'Comfortaa', cursive;
     color: black;
+}
+
+.tagContainer {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    color: #4a2512;
+    font-weight: bold;
+    font-size: small;
+    margin-top: -10px;
 }
 
 .image {
@@ -45,6 +53,12 @@
     object-fit: cover;
     border-top-left-radius: 15px;
     border-top-right-radius: 15px;
+}
+
+.tag {
+    width: 5%;
+    margin-top: 5px;
+    margin-right: 5px;
 }
 
 .card:hover {

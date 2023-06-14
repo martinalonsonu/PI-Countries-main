@@ -24,6 +24,7 @@ export const countriesSlice = createSlice({
         },
         filterContinent: (state, action) => {
             const continentFilter = state.allCountries.filter((country) => country.continent === action.payload);
+
             const continentActivityFilter = continentFilter.filter((country) =>
                 country.activities.find((activity) => activity.name === state.filterActivity)
             );
@@ -37,6 +38,7 @@ export const countriesSlice = createSlice({
             const activityContinentFilter = activityFilter.filter((country) =>
                 country.continent === state.filterContinent);
             state.filterContinent.length === 0 ? state.countries = activityFilter : state.countries = activityContinentFilter;
+            state.filterActivity = action.payload;
         },
         sortCountriesByName: (state, action) => {
             action.payload === "Alphabetical" ? state.countries = state.countries.sort((a, b) => a.name.localeCompare(b.name))

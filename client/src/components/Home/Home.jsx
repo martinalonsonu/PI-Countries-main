@@ -42,18 +42,21 @@ function Home() {
                 <Filters />
             </div>
             <div className={style.countries}>
-                {countriesSlice?.map(({ id, name, flag, continent }) => (
-                    <div key={id}>
-                        <Link className={style.link} to={`/detail/${id}`}>
-                            <Card
-                                id={id}
-                                name={name}
-                                flag={flag}
-                                continent={continent}
-                            />
-                        </Link>
-                    </div>
-                ))}
+                {countriesSlice?.map(
+                    ({ id, name, flag, continent, activities }) => (
+                        <div key={id}>
+                            <Link className={style.link} to={`/detail/${id}`}>
+                                <Card
+                                    id={id}
+                                    name={name}
+                                    flag={flag}
+                                    continent={continent}
+                                    activities={activities}
+                                />
+                            </Link>
+                        </div>
+                    )
+                )}
             </div>
 
             <div className={style.containerPagination}>

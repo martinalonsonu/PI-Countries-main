@@ -29,8 +29,8 @@ function Form() {
     });
 
     useEffect(() => {
-        dispatch(getActivity());
         dispatch(getCountries());
+        dispatch(getActivity());
 
         const initialErrors = validate(activity);
         setErrors(initialErrors);
