@@ -6,6 +6,7 @@ import {
     sortCountriesName,
     sortCountriesPopulation,
 } from "../../toolkit/countries";
+import { loadingStatus } from "../../toolkit/others";
 import { getActivity } from "../../toolkit/activities";
 import { currentPageBtn } from "../../toolkit/others";
 import { useDispatch, useSelector } from "react-redux";
@@ -22,6 +23,7 @@ function Filters() {
 
     const continents = ["Asia", "Africa", "Americas", "Europe", "Oceania"];
 
+    //Filters
     const handleFilterContinent = (event) => {
         dispatch(filterCountries(event.target.value));
         dispatch(currentPageBtn(1));
@@ -32,23 +34,27 @@ function Filters() {
         dispatch(currentPageBtn(1));
     };
 
-    //Ordenamientos
-    const handleOrderName = (event) => {
-        dispatch(sortCountriesName(event.target.value));
-        dispatch(currentPageBtn(1));
+    //Orders
+    const handleOrder = (event) => {
+        const { value } = event.target;
+        if (value === "Alphabetical" || value === "Reverse-Alphabetical") {
+            dispatch(sortCountriesName(value));
+            dispatch(currentPageBtn(1));
+        } else if (value === "Highest" || value === "Lower") {
+            dispatch(sortCountriesPopulation(value));
+            dispatch(currentPageBtn(1));
+        }
     };
 
-    const handleOrderPopulation = (event) => {
-        dispatch(sortCountriesPopulation(event.target.value));
-        dispatch(currentPageBtn(1));
-    };
-
+    //Remove
     const handleRemove = () => {
+        dispatch(loadingStatus(true));
         dispatch(getCountries());
         dispatch(getActivity());
         dispatch(currentPageBtn(1));
         dispatch(filterCountries(""));
         dispatch(filterActivity(""));
+        setTimeout(() => dispatch(loadingStatus(false)), 500);
     };
 
     return (
@@ -73,19 +79,14 @@ function Filters() {
                     </option>
                 ))}
             </select>
-            <select onChange={handleOrderName}>
+            <select onChange={handleOrder}>
                 <option value="orderName" disabled="disabled" selected>
-                    Order by name
+                    Order by:
                 </option>
                 <option value="Alphabetical">A-Z</option>
                 <option value="Reverse-Alphabetical">Z-A</option>
-            </select>
-            <select onChange={handleOrderPopulation}>
-                <option value="orderPopulation" disabled="disabled" selected>
-                    Order by population
-                </option>
-                <option value="Highest">Highest to lowest population</option>
-                <option value="Lower">Lower to higher population</option>
+                <option value="Highest">Highest population</option>
+                <option value="Lower">Lower population</option>
             </select>
             <button onClick={handleRemove}>Remove Filters</button>
         </div>

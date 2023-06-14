@@ -50,6 +50,7 @@ function Form() {
                 countries: countriesUpdatedActivity,
             });
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [dispatch, id]);
 
     const handleChange = (event) => {
