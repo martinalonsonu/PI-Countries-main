@@ -1,7 +1,9 @@
 # **WorldApp** | Proyecto Individual Henry
 
-## **📌 OBJETIVOS**
+## ** 🌍 WorldApp**
+- Es una aplicación web que permite ver la información de todos los países del mundo. Añade la característica de actividades por países.
 
+## ** 📌 DESARROLLO**
 -  Se construyó una Single Page Application utlizando las tecnologías: **React**, **Redux**, **Node**, **Express** y **Sequelize**.
 -  Uso de css puro
 -  Posterior a su entrega se migró a **Redux Toolkit**
