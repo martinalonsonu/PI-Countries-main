@@ -18,17 +18,23 @@ La aplicación consta de dos pestañas principales: **Home** y **Activities**. E
 Se cuenta con una **Search Bar** para el fácil acceso a la información de determinado país. Al hacer clic en alguna **Card** se ingresa al detalle del país seleccionado. Se cuenta con una paginación para la cómoda navegación en la app. 
 En home se cuenta con una barra de filtros: **Por continentes y actividades** además de ordenamientos: **Por orden alfabético y por población**
 
-<br/>
+
+<br />
+
 ---
-##Actualizaciones
+
+## **ACTUALIZACIONES**
 - Migración completa de la data de la API a la BD. (12/06)
 - Se migró del flujo de **redux** a **redux toolkit**. (12/06 - 13/06/23)
 - Se unificó en un solo "<select />" los ordenamientos para una mejor experiencia de usuario: Se tenían los ordenamientos por separado, lo que provocaba que entraran en conflicto cuando se utilizaban, debido a que los ordenamientos no se pueden combinar. (14/06/23)
 - Se solucionó el problema de los filtros combinados. Se pueden filtrar en ambos sentidos. De todas formas necesita un replanteamiento para una mejor experiencia de usuario. (14/06/23)
 
-<br/>
+
+<br />
+
 ---
-##PROPUESTAS DE MEJORA
+
+## **PROPUESTAS DE MEJORA**
 - Filtros con checkbox.
 - Utilización de iconos (svg).
 - Migración a TypeScript.
@@ -37,6 +43,7 @@ En home se cuenta con una barra de filtros: **Por continentes y actividades** ad
 <br />
 
 ---
+
 
 ## **⚠️ IMPORTANTE**
 
